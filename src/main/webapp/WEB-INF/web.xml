@@ -1,0 +1,61 @@
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+    <display-name>Archetype Created Web Application</display-name>
+
+    <servlet>
+        <servlet-name>ListStudent</servlet-name>
+        <servlet-class>com.action.ListStudentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListStudent</servlet-name>
+        <url-pattern>/list</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteStudentServlet</servlet-name>
+        <servlet-class>com.action.DeleteStudentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteStudentServlet</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ToModify</servlet-name>
+        <servlet-class>com.action.ToModifyServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ToModify</servlet-name>
+        <url-pattern>/toModify</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ModifyStudent</servlet-name>
+        <servlet-class>com.action.ModifyStudentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ModifyStudent</servlet-name>
+        <url-pattern>/modify</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PageDown</servlet-name>
+        <servlet-class>com.action.PageDownServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PageDown</servlet-name>
+        <url-pattern>/pageDown</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PageUp</servlet-name>
+        <servlet-class>com.action.PageUpServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PageUp</servlet-name>
+        <url-pattern>/pageUp</url-pattern>
+    </servlet-mapping>
+</web-app>

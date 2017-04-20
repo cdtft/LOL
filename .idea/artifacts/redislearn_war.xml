@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="redislearn:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="redislearn.war">
+      <element id="artifact" artifact-name="redislearn:war exploded" />
+    </root>
+  </artifact>
+</component>
