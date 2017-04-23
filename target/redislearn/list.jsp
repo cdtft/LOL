@@ -55,6 +55,8 @@
             padding: 5px 8px;
         }
     </style>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
 </head>
 
 <body>
@@ -71,25 +73,39 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${pageBean.studentList}" var="s">
-        <tr>
-            <th>${s.id}</th>
-            <th>${s.name}</th>
-            <th><fmt:formatDate value='${s.birthday}' pattern='yyyy-MM-dd'/></th>
-            <th>${s.description}</th>
-            <th>${s.avgScore}</th>
-            <th>
-                <a href="${pageContext.request.contextPath}/toModify?key=${s.name}">[MODIFY]</a>
-            </th>
-            <th>
-                <a href="${pageContext.request.contextPath}/delete?key=${s.name}">[DELETE]</a>
-            </th>
-        </tr>
+    <c:forEach items="${pageBean.studentList}" var="s" varStatus="obj">
+        <c:if test="${obj.count%2 == '0'}">
+            <tr style="background-color: #cccccc;">
+                <th>${s.id}</th>
+                <th>${s.name}</th>
+                <th><fmt:formatDate value='${s.birthday}' pattern='yyyy-MM-dd'/></th>
+                <th>${s.description}</th>
+                <th>${s.avgScore}</th>
+                <th>
+                    <a href="${pageContext.request.contextPath}/toModify?key=${s.id}">[修改]</a>
+                </th>
+                <th>
+                    <a href="${pageContext.request.contextPath}/delete?key=${s.id}" style="color: brown">[删除]</a>
+                </th>
+            </tr>
+        </c:if>
+        <c:if test="${obj.count%2 != '0'}">
+            <tr>
+                <th>${s.id}</th>
+                <th>${s.name}</th>
+                <th><fmt:formatDate value='${s.birthday}' pattern='yyyy-MM-dd'/></th>
+                <th>${s.description}</th>
+                <th>${s.avgScore}</th>
+                <th>
+                    <a href="${pageContext.request.contextPath}/toModify?key=${s.id}">[修改]</a>
+                </th>
+                <th>
+                    <a href="${pageContext.request.contextPath}/delete?key=${s.id}" style="color: brown">[删除]</a>
+                </th>
+            </tr>
+        </c:if>
     </c:forEach>
 
-    <tr>
-        <td><a href="${pageContext.request.contextPath}/modify.jsp">[添加]</a></td>
-    </tr>
     </tbody>
 </table>
 
@@ -97,13 +113,22 @@
     <tr>
         <td align="right">
         <span>
-        	<a href="${pageContext.request.contextPath}/list">[首页]</a>&nbsp;&nbsp;
-            <a href="${pageContext.request.contextPath}/pageUp?currentPage=${pageBean.currentPage}">[上一页]</a>&nbsp;&nbsp;
-            <a href="${pageContext.request.contextPath}/pageDown?currentPage=${pageBean.currentPage}">[下一页]</a>&nbsp;&nbsp;
+            <ul class="pagination">
+                <li><a href="${pageContext.request.contextPath}/modify.jsp">添加</a></li>
+                <li><a href="${pageContext.request.contextPath}/list">首页</a></li>
+                <li><a href="${pageContext.request.contextPath}/pageDown?currentPage=${pageBean.currentPage-1}">上一页</a></li>
+                <li><a href="#">当前第${pageBean.currentPage}页,共${pageBean.totalPage}页</a></li>
+                <li><a href="${pageContext.request.contextPath}/pageDown?currentPage=${pageBean.currentPage+1}">下一页</a></li>
+                <li><a href="${pageContext.request.contextPath}/pageDown?currentPage=${pageBean.totalPage}">尾页</a></li>
+            </ul>
         </span>
         </td>
     </tr>
 </table>
+
+
+<script type="text/javascript" src="js/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 </body>
 
 </html>

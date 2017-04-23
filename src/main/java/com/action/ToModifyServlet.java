@@ -21,11 +21,12 @@ public class ToModifyServlet extends HttpServlet{
 
     private StudentDao studentDao;
     private StudentService studentService;
+    private JedisPool pool;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        JedisPool pool= JedisPoolUtil.getJedisPoolInstance();
+        pool= JedisPoolUtil.getJedisPoolInstance();
         studentDao = new StudentDaoImpl(pool.getResource());
         studentService = new StudentServiceImpl(studentDao);
     }
@@ -40,5 +41,11 @@ public class ToModifyServlet extends HttpServlet{
         Student student = studentService.findStudentByKey(key);
         req.setAttribute("student", student);
         req.getRequestDispatcher("/modify.jsp").forward(req, resp);
+    }
+
+    @Override
+    public void destroy() {
+        pool.close();
+        super.destroy();
     }
 }

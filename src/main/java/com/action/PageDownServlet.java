@@ -23,11 +23,12 @@ public class PageDownServlet  extends HttpServlet{
     private int currentPage;
     private StudentDao studentDao;
     private StudentService studentService;
+    private JedisPool pool;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        JedisPool pool= JedisPoolUtil.getJedisPoolInstance();
+        pool= JedisPoolUtil.getJedisPoolInstance();
         studentDao = new StudentDaoImpl(pool.getResource());
         studentService = new StudentServiceImpl(studentDao);
     }
@@ -39,10 +40,13 @@ public class PageDownServlet  extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        currentPage = Integer.parseInt(req.getParameter("currentPage"))+1;
+        currentPage = Integer.parseInt(req.getParameter("currentPage"));
         int totalPageNum = studentService.getTotalPage();
         if(currentPage > totalPageNum){
             currentPage = totalPageNum;
+        }
+        if(currentPage < 1){
+            currentPage = 1;
         }
         ArrayList<Student> studentArrayList = (ArrayList<Student>) studentService.findStudentByPage(currentPage);
         PageBean pageBean = new PageBean();
@@ -51,5 +55,11 @@ public class PageDownServlet  extends HttpServlet{
         pageBean.setTotalPage(totalPageNum);
         req.setAttribute("pageBean", pageBean);
         req.getRequestDispatcher("/list.jsp").forward(req, resp);
+    }
+
+    @Override
+    public void destroy() {
+        pool.close();
+        super.destroy();
     }
 }

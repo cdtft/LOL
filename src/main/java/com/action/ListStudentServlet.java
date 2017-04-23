@@ -22,15 +22,16 @@ import java.util.List;
  */
 public class ListStudentServlet extends HttpServlet {
 
-    private final static int CURRENT_PAGE = 1;
+    private final static int CURRENT_PAGE = 1;//默认展现第一页的信息
 
     private StudentDao studentDao;
     private StudentService studentService;
+    private JedisPool pool;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        JedisPool pool= JedisPoolUtil.getJedisPoolInstance();
+        pool= JedisPoolUtil.getJedisPoolInstance();
         studentDao = new StudentDaoImpl(pool.getResource());
         studentService = new StudentServiceImpl(studentDao);
     }
@@ -50,5 +51,12 @@ public class ListStudentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req,resp);
+    }
+
+    @Override
+    public void destroy() {
+
+        pool.close();
+        super.destroy();
     }
 }

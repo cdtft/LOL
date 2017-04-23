@@ -23,11 +23,12 @@ public class ModifyStudentServlet extends HttpServlet {
 
     private StudentDao studentDao;
     private StudentService studentService;
+    private JedisPool pool;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        JedisPool pool= JedisPoolUtil.getJedisPoolInstance();
+        pool= JedisPoolUtil.getJedisPoolInstance();
         studentDao = new StudentDaoImpl(pool.getResource());
         studentService = new StudentServiceImpl(studentDao);
     }
@@ -48,5 +49,11 @@ public class ModifyStudentServlet extends HttpServlet {
                 Integer.parseInt(avgScore));
         studentService.modifyStudent(student);
         resp.sendRedirect(req.getContextPath()+"/list");
+    }
+
+    @Override
+    public void destroy() {
+        pool.close();
+        super.destroy();
     }
 }

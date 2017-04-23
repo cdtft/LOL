@@ -24,7 +24,6 @@ public class StudentDaoImpl implements StudentDao {
     public void deleteStudentByKey(String k) {
         jedis.del(k);
         jedis.zrem("sort", k);
-        System.out.print("success");
     }
 
     public void addOrUpdateStudent(Student student) {
@@ -34,8 +33,9 @@ public class StudentDaoImpl implements StudentDao {
         map.put("description", student.getDescription());
         map.put("birthday", DateUtil.dateToStr(student.getBirthday()));
         map.put("avgScore", Integer.toString(student.getAvgScore()));
-        jedis.hmset(student.getName(),map);
-        jedis.zadd("sort", student.getAvgScore(), student.getName());
+        //通过id来修改
+        jedis.hmset(student.getId(),map);
+        jedis.zadd("sort", student.getAvgScore(), student.getId());
     }
 
 

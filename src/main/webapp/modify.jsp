@@ -40,7 +40,7 @@
     </style>
 </head>
 <body>
-<form class="form" action="${pageContext.request.contextPath}/modify" method="post">
+<form class="form" action="${pageContext.request.contextPath}/modify" method="post" accept-charset="ISO-8859-1">
     <table align="center" border="1">
         <thead>
         <tr>

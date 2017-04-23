@@ -49,13 +49,4 @@
         <servlet-name>PageDown</servlet-name>
         <url-pattern>/pageDown</url-pattern>
     </servlet-mapping>
-    
-    <servlet>
-        <servlet-name>PageUp</servlet-name>
-        <servlet-class>com.action.PageUpServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PageUp</servlet-name>
-        <url-pattern>/pageUp</url-pattern>
-    </servlet-mapping>
 </web-app>
